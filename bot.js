@@ -22,23 +22,10 @@ bot.on('message', (msg) => {
       bot.sendMessage(chatId, 'Welcome to Takshila 📖 !');
     }
 });
-let name;
-bot.onText(/\/name/, async (msg,match) => {
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId,'What should I call you?')
-    bot.on('message',(msg)=>{
-        const nameId=msg.chat.id;
-        const message = msg.text;
-        bot.sendMessage(nameId,`Nice to meet you ${message} !!!`)
-    })
-});
 
-bot.onText(/\/book/, async (msg)=>{
-    const chatId=msg.chat.id;
-    bot.sendMessage(chatId,'What is the book called ?')
-    bot.on('message',(msg)=>{
+bot.onText(/\/book (.+)/, async (msg,match)=>{
         const bookId = msg.chat.id;
-        const message=msg.text;
+        const message = match[1];
         libgen(message).then(function(books){
             let arr = books.filter(a=>a.language='English');
             let arrEpub = arr.filter(a=>a.extension='epub');
@@ -57,5 +44,4 @@ bot.onText(/\/book/, async (msg)=>{
             bot.sendMessage(bookId,"Book Not Found");
         })
 
-    })
 })
