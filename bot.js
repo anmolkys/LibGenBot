@@ -29,7 +29,6 @@ bot.onText(/\/book (.+)/, async (msg,match)=>{
         libgen(message).then(function(books){
             let arr = books.filter(a=>a.language='English');
             let arrEpub = arr.filter(a=>a.extension='epub');
-            let arrPdf = arr.filter(a=>a.extension='pdf');
             let i = 0;
             let length = arrEpub.length;
             if(length>20){
@@ -37,7 +36,8 @@ bot.onText(/\/book (.+)/, async (msg,match)=>{
             }
             for(i;i<length;i++){
                 let md5 = parse(arrEpub[i].download);
-                const bookDetails = `Title : ${arrEpub[i].title} \n \nAuthor : ${arrEpub[i].author} \n \nLink : ${'https://www.libgen.is/book/index.php?md5=' + md5[5]}`
+                let downLink = arrEpub[i].download.replace("93.174.95.29","download.library.lol").trim().replace(/\s/g, '%20').replace("-","%2D").replace("(","%28").replace(")","%29");
+                const bookDetails = `Title : ${arrEpub[i].title} \n \nAuthor : ${arrEpub[i].author} \n \nSize: ${arrEpub[i].filesize} \n \nLanguage: ${arrEpub[i].language} \n \nBook Link : ${'https://www.libgen.is/book/index.php?md5=' + md5[5]} \n \nDownload : ${downLink}`
                 bot.sendMessage(bookId,bookDetails);
             }
         }).catch(function(error){
