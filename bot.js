@@ -39,6 +39,7 @@ bot.onText(/\/book (.+)/, async (msg,match)=>{
                 let downLink = arrEpub[i].download.replace("93.174.95.29","download.library.lol").trim().replace(/\s/g, '%20').replace("-","%2D").replace("(","%28").replace(")","%29");
                 const bookDetails = `Title : ${arrEpub[i].title} \n \nAuthor : ${arrEpub[i].author} \n \nSize: ${arrEpub[i].filesize} \n \nLanguage: ${arrEpub[i].language} \n \nBook Link : ${'https://www.libgen.is/book/index.php?md5=' + md5[5]} \n \nDownload : ${downLink}`
                 bot.sendMessage(bookId,bookDetails);
+                bot.sendMessage(bookId,`Found ${length} books for you. Happy Reading.`)
             }
         }).catch(function(error){
             bot.sendMessage(bookId,"Book Not Found");
