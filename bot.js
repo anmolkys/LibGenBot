@@ -1,6 +1,6 @@
 const dotenv = require("dotenv").config();
 const TelegramBot = require('node-telegram-bot-api');
-const libgen = require('libgenesis');
+const libgen = require('libgen-search');
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 var request = require('request');
